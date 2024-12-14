@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGO_URI,{
   .catch((err) => console.error('Error connecting to DB: ' + err));
 
 //Schema
-const UrlSchema = new mongoose.Schema({
+const shortUrlSchema = new mongoose.Schema({
   original_url: {
     type: String,
     require: true
@@ -24,10 +24,10 @@ const UrlSchema = new mongoose.Schema({
 });
 
 //Add autoincrement for field short_url
-UrlSchema.plugin(AutoIncrement, { inc_field: 'short_url' });
+shortUrlSchema.plugin(AutoIncrement, { inc_field: 'short_url' });
 
 //Model
-const Url = mongoose.model('Url', UrlSchema);
+const ShortUrl = mongoose.model('ShortUrl', shortUrlSchema);
 
 //-----------------------------------------------------------------
 
