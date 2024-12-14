@@ -66,7 +66,13 @@ app.get('/api/hello', function(req, res) {
 });
 
 app.post('/api/shorturl', (req, res, next) => {
+  const submitedURL = req.body.url;
 
+  if( validateURL(submitedURL) ) {
+
+  } else {
+    res.json({ error: 'invalid url' });
+  }
 });
 
 app.listen(port, function() {
