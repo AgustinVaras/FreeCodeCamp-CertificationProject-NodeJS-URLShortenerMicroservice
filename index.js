@@ -1,12 +1,28 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
 const app = express();
 
+//-----------------------------------------------------------------
+//MongoDB setup
+const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI,{ 
   useNewUrlParser: true, useUndefinedTopology: true
 });
+
+//Schema
+const UrlSchema = new mongoose.Schema({
+  original_url: {
+    type: String,
+    require: true
+  },
+  short_url: {
+    type: Number,
+    require: true
+  }
+});
+
+//-----------------------------------------------------------------
 
 // Basic Configuration
 const port = process.env.PORT || 3000;
