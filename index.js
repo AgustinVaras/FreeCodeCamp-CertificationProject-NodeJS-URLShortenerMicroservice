@@ -22,6 +22,9 @@ const UrlSchema = new mongoose.Schema({
   }
 });
 
+//Model
+const Url = mongoose.model('Url', UrlSchema);
+
 //-----------------------------------------------------------------
 
 // Basic Configuration
