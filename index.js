@@ -38,15 +38,12 @@ const port = process.env.PORT || 3000;
 //Functions
 const dns = require('dns');
 const url = require('url');
-const validateURL = submitedURL => {
+const validateURL = async (submitedURL) => {
   try {
     const { hostname } = new URL(submitedURL);
 
-    dns.lookup(hostname, (err, address) => {
-      if (err) return false;
-
-      return true
-    });
+    await dns.lookup(hostname);
+    return true
   } catch (err) {
     console.error("Unexpected error: " + err);
     return false;
@@ -67,10 +64,10 @@ app.get('/api/hello', function(req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-app.post('/api/shorturl', (req, res, next) => {
+app.post('/api/shorturl', async (req, res, next) => {
   const submitedURL = req.body.url;
 
-  if( validateURL(submitedURL) ) {
+  if( await validateURL(submitedURL) ) {
 
   } else {
     res.json({ error: 'invalid url' });
