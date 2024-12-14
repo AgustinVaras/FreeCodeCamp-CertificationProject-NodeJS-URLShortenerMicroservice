@@ -6,6 +6,8 @@ const app = express();
 //-----------------------------------------------------------------
 //MongoDB setup
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+
 mongoose.connect(process.env.MONGO_URI,{ 
   useNewUrlParser: true, useUndefinedTopology: true
 })
@@ -18,11 +20,11 @@ const UrlSchema = new mongoose.Schema({
     type: String,
     require: true
   },
-  short_url: {
-    type: Number,
-    require: true
-  }
+  short_url: Number
 });
+
+//Add autoincrement for field short_url
+UrlSchema.plugin(AutoIncrement, { inc_field: 'short_url' });
 
 //Model
 const Url = mongoose.model('Url', UrlSchema);
