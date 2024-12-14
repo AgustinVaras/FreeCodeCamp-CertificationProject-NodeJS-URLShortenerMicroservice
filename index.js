@@ -32,6 +32,26 @@ const Url = mongoose.model('Url', UrlSchema);
 // Basic Configuration
 const port = process.env.PORT || 3000;
 
+//-----------------------------------------------------------------
+//Functions
+const dns = require('dns');
+const url = require('url');
+const validateURL = submitedURL => {
+  try {
+    const { hostname } = new URL(submitedURL);
+
+    dns.lookup(hostname, (err, address) => {
+      if (err) return false;
+
+      return true
+    });
+  } catch (err) {
+    console.error("Unexpected error: " + err);
+    return false;
+  }
+};
+
+//-----------------------------------------------------------------
 app.use(cors());
 
 app.use('/public', express.static(`${process.cwd()}/public`));
@@ -46,7 +66,7 @@ app.get('/api/hello', function(req, res) {
 });
 
 app.post('/api/shorturl', (req, res, next) => {
-  
+
 });
 
 app.listen(port, function() {
