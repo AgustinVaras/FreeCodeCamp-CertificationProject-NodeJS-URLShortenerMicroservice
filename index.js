@@ -95,7 +95,8 @@ app.post('/api/shorturl', async (req, res) => {
 app.get('/api/shorturl/:shorturl', async (req, res) => {
   const submitedShortURL = req.params.shorturl;
   const foundUrl = await ShortUrl.findOne({short_url: submitedShortURL}).exec();
-  
+
+  res.redirect(foundUrl.original_url);
   // console.log(foundUrl);
 });
 
