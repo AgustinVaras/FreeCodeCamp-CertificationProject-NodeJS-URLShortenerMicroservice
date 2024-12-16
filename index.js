@@ -92,6 +92,11 @@ app.post('/api/shorturl', async (req, res) => {
   }
 });
 
+app.get('/api/shorturl/:shorturl', (req, res) => {
+  const submitedShortURL = req.params.shorturl;
+  
+});
+
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
